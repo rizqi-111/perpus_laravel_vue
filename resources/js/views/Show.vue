@@ -18,7 +18,7 @@
                     <td>{{ book.tahun_terbit }}</td>
                     <td>
                         <button class="btn btn-secondary" @click="edit(book.id)">Ubah</button>
-                        <button class="btn btn-danger" @click="deletee(book.id)">Hapus</button>
+                        <button class="btn btn-danger" @click="deletee(book,index)">Hapus</button>
                     </td>
                 </tr>
             </tbody>
@@ -43,6 +43,16 @@ export default {
         edit(id){
             localStorage.setItem('idbook',id)
             this.$router.push({name: 'editBook'})
+        },
+        deletee(book,index){
+            if(confirm("Apakah Anda yakin Menghapus Buku '"+book.judul+"'")){
+                axios
+                .delete('/api/destroy/'+book.id)
+                .then(response => {
+                    alert('Buku "'+book.judul+'" Berhasil Dihapus')
+                    this.books.splice(index,1)
+                })
+            }
         }
     }
 }

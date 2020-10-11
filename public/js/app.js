@@ -2231,6 +2231,17 @@ __webpack_require__.r(__webpack_exports__);
       this.$router.push({
         name: 'editBook'
       });
+    },
+    deletee: function deletee(book, index) {
+      var _this2 = this;
+
+      if (confirm("Apakah Anda yakin Menghapus Buku '" + book.judul + "'")) {
+        axios["delete"]('/api/destroy/' + book.id).then(function (response) {
+          alert('Buku "' + book.judul + '" Berhasil Dihapus');
+
+          _this2.books.splice(index, 1);
+        });
+      }
     }
   }
 });
@@ -38331,7 +38342,7 @@ var render = function() {
                   staticClass: "btn btn-danger",
                   on: {
                     click: function($event) {
-                      return _vm.deletee(book.id)
+                      return _vm.deletee(book, index)
                     }
                   }
                 },
