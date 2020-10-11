@@ -17,8 +17,8 @@
                     <td>{{ book.pengarang }}</td>
                     <td>{{ book.tahun_terbit }}</td>
                     <td>
-                        <button class="btn btn-secondary" @click="edit(item.id)">Ubah</button>
-                        <button class="btn btn-danger" @click="deletee(item.id)">Hapus</button>
+                        <button class="btn btn-secondary" @click="edit(book.id)">Ubah</button>
+                        <button class="btn btn-danger" @click="deletee(book.id)">Hapus</button>
                     </td>
                 </tr>
             </tbody>
@@ -38,6 +38,12 @@ export default {
         axios.get('/api/read').then(response => {
             this.books = response.data
         })
+    },
+    methods: {
+        edit(id){
+            localStorage.setItem('idbook',id)
+            this.$router.push({name: 'editBook'})
+        }
     }
 }
 </script>

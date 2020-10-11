@@ -2076,7 +2076,82 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      form: {
+        judul: '',
+        pengarang: '',
+        tahun_terbit: '',
+        id: ''
+      }
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get('/api/show/' + window.localStorage.getItem('idbook')).then(function (response) {
+      // console.log(response.data)
+      _this.form.judul = response.data.judul;
+      _this.form.pengarang = response.data.pengarang;
+      _this.form.tahun_terbit = response.data.tahun_terbit;
+      _this.form.id = response.data.id;
+    });
+  },
+  methods: {
+    updateBook: function updateBook() {
+      var _this2 = this;
+
+      axios.put('api/update/' + this.form.id, {
+        judul: this.form.judul,
+        pengarang: this.form.pengarang,
+        tahun_terbit: this.form.tahun_terbit
+      }).then(function (response) {
+        alert("Berhasil Diubah");
+
+        _this2.$router.push({
+          name: 'showBook'
+        });
+      })["catch"](function (response) {
+        if (response.response.data.errors) {
+          alert(JSON.stringify(response.response.data.errors));
+        }
+      });
+    }
+  }
+});
 
 /***/ }),
 
@@ -2149,6 +2224,14 @@ __webpack_require__.r(__webpack_exports__);
     axios.get('/api/read').then(function (response) {
       _this.books = response.data;
     });
+  },
+  methods: {
+    edit: function edit(id) {
+      localStorage.setItem('idbook', id);
+      this.$router.push({
+        name: 'editBook'
+      });
+    }
   }
 });
 
@@ -38047,28 +38130,126 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-6" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [_vm._v("Ubah Buku")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v("\n                    FORM\n                ")
-            ])
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-6" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [_vm._v("Ubah Buku")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c(
+              "form",
+              {
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.updateBook()
+                  }
+                }
+              },
+              [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Judul Buku")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.judul,
+                        expression: "form.judul"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "textfield",
+                      placeholder: "Masukkan Judul Film",
+                      required: ""
+                    },
+                    domProps: { value: _vm.form.judul },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.form, "judul", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Nama Pengarang")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.pengarang,
+                        expression: "form.pengarang"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      placeholder: "Masukkan Harga Film",
+                      required: ""
+                    },
+                    domProps: { value: _vm.form.pengarang },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.form, "pengarang", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Tahun Terbit")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.tahun_terbit,
+                        expression: "form.tahun_terbit"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "date",
+                      placeholder: "Masukkan Harga Film",
+                      required: ""
+                    },
+                    domProps: { value: _vm.form.tahun_terbit },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.form, "tahun_terbit", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("button", { staticClass: "btn btn-primary" }, [
+                  _vm._v("Ubah")
+                ])
+              ]
+            )
           ])
         ])
       ])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -38137,7 +38318,7 @@ var render = function() {
                   staticClass: "btn btn-secondary",
                   on: {
                     click: function($event) {
-                      return _vm.edit(_vm.item.id)
+                      return _vm.edit(book.id)
                     }
                   }
                 },
@@ -38150,7 +38331,7 @@ var render = function() {
                   staticClass: "btn btn-danger",
                   on: {
                     click: function($event) {
-                      return _vm.deletee(_vm.item.id)
+                      return _vm.deletee(book.id)
                     }
                   }
                 },
