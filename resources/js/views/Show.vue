@@ -6,6 +6,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Judul</th>
                     <th scope="col">Pengarang</th>
+                    <th scope="col">Tahun Terbit</th>
                     <th scope="col">Aksi</th>
                 </tr>
             </thead>
@@ -14,6 +15,7 @@
                     <td>{{ index+1 }}</td>
                     <td>{{ book.judul }}</td>
                     <td>{{ book.pengarang }}</td>
+                    <td>{{ book.tahun_terbit }}</td>
                     <td>
                         <button class="btn btn-secondary" @click="edit(item.id)">Ubah</button>
                         <button class="btn btn-danger" @click="deletee(item.id)">Hapus</button>
